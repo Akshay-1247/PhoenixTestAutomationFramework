@@ -1,33 +1,22 @@
 package com.api.tests;
 
-import static org.hamcrest.Matchers.*;
+import static com.api.constant.Role.FD;
+import static io.restassured.RestAssured.given;
 import org.testng.annotations.Test;
-import static com.api.constant.Role.*;
-import static com.api.utils.AuthTokenProvider.*;
-import static com.api.utils.ConfigManager.*;
-import io.restassured.http.ContentType;
-import io.restassured.http.Header;
+import com.api.utils.SpecUtil;
 import io.restassured.module.jsv.JsonSchemaValidator;
-
-import static io.restassured.RestAssured.*;
 
 public class UserDetailsAPITest {
 	
 	@Test
 	public void userDetailsAPITest() {
 		
-		Header authHeader = new Header("Authorization",getToken(FD));
 		given()
-			.baseUri(getProperty("BASE_URI"))
-			.header(authHeader)
-			.accept(ContentType.JSON)
-			.log().all()
+			.spec(SpecUtil.requestSpecWithAuth(FD))
 		.when()
 			.get("userdetails")
 		.then()
-			.log().all()
-			.statusCode(200)
-			.time(lessThan(1000L))
+			.spec(SpecUtil.responseSpec_OK())
 			.body(JsonSchemaValidator.matchesJsonSchemaInClasspath("response-schema/UserDetailsResponseSchema.json"));
 			
 	}
