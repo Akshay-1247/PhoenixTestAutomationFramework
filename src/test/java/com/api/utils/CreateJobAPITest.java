@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.testng.annotations.Test;
-
+import static com.api.utils.DateTimeUtil.*;
 import com.api.constant.Role;
 import com.api.request.model.CreateJobPayload;
 import com.api.request.model.Customer;
@@ -26,7 +26,7 @@ public class CreateJobAPITest {
 		
 		Customer customer = new Customer("Akshay","H" ,"9809809800" ,"","saitama@yopmail.com" , "" );
 		CustomerAddress customerAddress = new CustomerAddress("Mumbai", "Mumbai", "Mumbai","Mumbai", "Mumbai","400703", "India", "Maharashtra");
-		CustomerProduct customerProduct = new CustomerProduct("2026-01-10T18:30:00.000Z", "686798556619518", "686798556619518", "686798556619518", "2026-01-10T18:30:00.000Z", 3, 3);
+		CustomerProduct customerProduct = new CustomerProduct(getTimeWithDaysAgo(10), "68679856619518", "68679856619518", "68679856619518", getTimeWithDaysAgo(10), 3, 3);
 		Problems problems = new Problems(2, "Battery Health");
 		List<Problems> problemsList = new ArrayList<Problems>();
 		problemsList.add(problems);
