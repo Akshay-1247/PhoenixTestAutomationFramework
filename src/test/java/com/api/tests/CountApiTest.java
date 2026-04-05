@@ -9,7 +9,7 @@ import static io.restassured.RestAssured.*;
 
 public class CountApiTest {
 	
-	@Test
+	@Test(description = "Verify if the count api response is shown correctly",groups = {"api","regression","smoke"})
 	public void verifyCountAPIResponse() {
 		given()
 			.spec(SpecUtil.requestSpecWithAuth(FD))
@@ -26,7 +26,7 @@ public class CountApiTest {
 			.body(matchesJsonSchemaInClasspath("response-schema/CountAPIResponseSchema-FD.json"));
 	}
 	
-	@Test
+	@Test(description = "Verify if the count api is giving correct status for invalid token",groups = {"api","negative","regression","smoke"})
 	public void countAPITest_MissingAuthToken() {
 		given()
 			.spec(SpecUtil.requestSpec())

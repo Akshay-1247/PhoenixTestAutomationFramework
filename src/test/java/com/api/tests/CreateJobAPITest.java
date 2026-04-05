@@ -1,10 +1,11 @@
-package com.api.utils;
+package com.api.tests;
 
 import static org.hamcrest.Matchers.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import static com.api.utils.DateTimeUtil.*;
 
@@ -21,16 +22,18 @@ import com.api.request.model.Customer;
 import com.api.request.model.CustomerAddress;
 import com.api.request.model.CustomerProduct;
 import com.api.request.model.Problems;
+import com.api.utils.SpecUtil;
 
-import io.restassured.http.ContentType;
 import static io.restassured.module.jsv.JsonSchemaValidator.*;
 
 import static io.restassured.RestAssured.*;
 
 public class CreateJobAPITest {
 	
-	@Test
-	public void createJobAPITest() {
+	private CreateJobPayload createJobPayload;
+	
+	@BeforeMethod(description = "Creating the createJobAPI payload")
+	public void setup() {
 		
 		Customer customer = new Customer("Akshay","H" ,"9809809800" ,"","saitama@yopmail.com" , "" );
 		CustomerAddress customerAddress = new CustomerAddress("Mumbai", "Mumbai", "Mumbai","Mumbai", "Mumbai","400703", "India", "Maharashtra");
@@ -39,7 +42,13 @@ public class CreateJobAPITest {
 		Problems problems = new Problems(Problem.POOR_BATTERY_LIFE.getCode(), "Battery Health");
 		List<Problems> problemsList = new ArrayList<Problems>();
 		problemsList.add(problems);
-		CreateJobPayload createJobPayload = new CreateJobPayload(ServiceLocation.SERVICE_LOCATION_A.getCode(), Platform.FRONT_DESK.getCode(), Warranty_status.IN_WARRANTY.getCode(), OEM.APPLE.getCode(), customer, customerAddress, customerProduct, problemsList);
+		createJobPayload = new CreateJobPayload(ServiceLocation.SERVICE_LOCATION_A.getCode(), Platform.FRONT_DESK.getCode(), Warranty_status.IN_WARRANTY.getCode(), OEM.APPLE.getCode(), customer, customerAddress, customerProduct, problemsList);
+		
+		
+	}
+	
+	@Test(description = "Verify if the create job api is able to create inwarranty job",groups = {"api","regression","smoke"})
+	public void createJobAPITest() {
 		
 		given()
 			.spec(SpecUtil.requestSpecWithAuth(Role.FD, createJobPayload))

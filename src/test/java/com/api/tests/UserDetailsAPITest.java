@@ -3,21 +3,21 @@ package com.api.tests;
 import static com.api.constant.Role.FD;
 import static io.restassured.RestAssured.given;
 import org.testng.annotations.Test;
-import com.api.utils.SpecUtil;
-import io.restassured.module.jsv.JsonSchemaValidator;
+import static com.api.utils.SpecUtil.*;
+import static io.restassured.module.jsv.JsonSchemaValidator.*;
 
 public class UserDetailsAPITest {
 	
-	@Test
+	@Test(description = "Verify if the user details api response is shown correctly",groups = {"api","regression","smoke"})
 	public void userDetailsAPITest() {
 		
 		given()
-			.spec(SpecUtil.requestSpecWithAuth(FD))
+			.spec(requestSpecWithAuth(FD))
 		.when()
 			.get("userdetails")
 		.then()
-			.spec(SpecUtil.responseSpec_OK())
-			.body(JsonSchemaValidator.matchesJsonSchemaInClasspath("response-schema/UserDetailsResponseSchema.json"));
+			.spec(responseSpec_OK())
+			.body(matchesJsonSchemaInClasspath("response-schema/UserDetailsResponseSchema.json"));
 			
 	}
 }
