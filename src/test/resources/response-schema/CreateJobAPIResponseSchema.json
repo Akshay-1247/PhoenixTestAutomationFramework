@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Generated schema for Root",
+  "type": "object",
+  "properties": {
+    "message": {
+      "type": "string"
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number"
+        },
+        "mst_service_location_id": {
+          "type": "number"
+        },
+        "mst_platform_id": {
+          "type": "number"
+        },
+        "mst_warrenty_status_id": {
+          "type": "number"
+        },
+        "mst_oem_id": {
+          "type": "number"
+        },
+        "tr_customer_id": {
+          "type": "number"
+        },
+        "tr_customer_product_id": {
+          "type": "number"
+        },
+        "job_number": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "mst_service_location_id",
+        "mst_platform_id",
+        "mst_warrenty_status_id",
+        "mst_oem_id",
+        "tr_customer_id",
+        "tr_customer_product_id",
+        "job_number"
+      ]
+    }
+  },
+  "required": [
+    "message",
+    "data"
+  ]
+}
