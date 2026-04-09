@@ -12,7 +12,7 @@ import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import com.opencsv.exceptions.CsvException;
 
-public class ReadCSVFile2_MapToPOJO {
+public class ReadCSVFile_MapToPOJO {
 
 	public static void main(String[] args) throws IOException, CsvException {
 
@@ -21,12 +21,12 @@ public class ReadCSVFile2_MapToPOJO {
 		CSVReader csvReader = new CSVReader(isr);
 
 		//map csv to pojo
-		CsvToBean<UserPOJO> csvToBean = new CsvToBeanBuilder(csvReader)
-				.withType(UserPOJO.class)
+		CsvToBean<UserBean> csvToBean = new CsvToBeanBuilder(csvReader)
+				.withType(UserBean.class)
 				.withIgnoreEmptyLine(true)
 				.build();
 		
-		List<UserPOJO>userList= csvToBean.parse();
+		List<UserBean>userList= csvToBean.parse();
 		System.out.println(userList);
 		System.out.println(userList.get(0).getUsername());
 		
